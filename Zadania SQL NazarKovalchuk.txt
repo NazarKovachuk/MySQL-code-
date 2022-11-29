@@ -1,0 +1,235 @@
+1
+SELECT*
+FROM employees
+WHERE city = 'Redmond';
+
+2
+SELECT product_code, product_name, category 
+FROM products 
+WHERE category <> 'Beverages';
+
+3
+SELECT*
+FROM products
+WHERE list_price > '12.0000';
+
+4
+SELECT ship_city, ship_address, shipping_fee 
+FROM orders
+WHERE shipping_fee 
+BETWEEN "20.0000" 
+AND "78.1223";
+
+5
+SELECT*
+FROM products
+WHERE minimum_reorder_quantity 
+IS NOT null;
+
+6
+SELECT*
+FROM products
+WHERE minimum_reorder_quantity 
+IS NOT null
+AND standard_cost > 10.0000;
+
+7
+SELECT first_name, last_name, city
+FROM employees
+WHERE city LIKE "%nd";
+
+8
+SELECT first_name, last_name, city
+FROM employees
+WHERE city LIKE "%nd" 
+AND city <> "Redmond"; 
+
+9
+SELECT*
+FROM customers
+WHERE job_title <> "manager";
+
+10
+SELECT*
+FROM customers
+WHERE first_name LIKE "J%"
+OR last_name LIKE "%o"
+AND job_title = "manager"; 
+
+11
+SELECT*
+FROM products
+WHERE supplier_ids = "4" 
+OR "6"
+OR "7";
+
+12
+SELECT first_name, last_name, city
+FROM employees
+WHERE city = "Redmond"
+ORDER BY first_name DESC;
+
+13
+SELECT*
+FROM products
+ORDER BY standard_cost asc;
+
+14
+SELECT*
+FROM products
+ORDER BY standard_cost ASC, list_price DESC;
+
+15
+SELECT distinct job_title 
+FROM customers;
+
+16
+SELECT distinct category    
+FROM products
+ORDER BY category DESC;
+
+17
+SELECT first_name AS Imie_pracownika, 
+last_name AS Nazwisko_pracownika,
+city AS Miasto
+FROM employees
+WHERE city = "Seattle";
+
+18
+SELECT ship_city AS Miasto,
+ship_address AS Adres_dostawy,
+shipping_fee AS Opłata_za_przewóz_zamówienia
+FROM orders
+WHERE shipping_fee 
+BETWEEN 19.1256
+AND 78.1999;
+
+19
+SELECT COUNT(*) 
+FROM orders;
+
+20
+SELECT COUNT(payment_type)
+FROM orders
+WHERE payment_type = 'Credit Card';
+
+21
+SELECT COUNT(paid_date)
+FROM orders
+WHERE paid_date IS NOT NULL;
+
+22
+SELECT MAX(shipping_fee)
+FROM orders;
+
+23
+SELECT MIN(standard_cost)
+FROM products
+WHERE id = '1';
+
+24
+SELECT AVG(shipping_fee)
+FROM orders
+WHERE shipping_fee
+IS NOT NULL;
+
+25
+SELECT SUM(product_name)
+FROM products
+WHERE product_name = "Northwind Traders Coffee"
+AND id = "43";
+
+26
+SELECT MIN(standard_cost), category
+FROM products
+GROUP BY category;
+
+27
+SELECT count(job_title), job_title
+FROM customers
+GROUP BY job_title;
+
+28
+SELECT * FROM products
+inner join suppliers
+on products.supplier_ids=suppliers.id;
+
+29
+SELECT product_name, company 
+FROM products
+inner join suppliers
+on products.supplier_ids = suppliers.id
+ORDER BY company asc; 
+
+30
+select first_name, last_name, address, city< country_region
+FROM customers
+INNER JOIN orders
+ON customers.id = orders.customer_id
+WHERE payment_type IS NULL;
+
+31
+SELECT* 
+FROM orders
+LEFT join shippers
+ON orders.shipper_id = shippers.id;
+
+32
+SELECT company, order_date, shipped_date
+FROM customers
+left join orders
+on customers.id = orders.customer_id;
+
+33
+SELECT invoice_date AS "Data faktury",
+paid_date AS "Data płatności"
+FROM invoices
+left join orders
+on invoices.order_id = orders.id;
+
+34
+SELECT orders.order_date, employees.last_name, employees.job_title
+FROM orders
+RIGHT JOIN employees
+ON orders.employee_id=employees.id
+WHERE order_date is null;
+
+35
+SELECT customers.company, orders.order_date, orders.shipped_date
+FROM customers
+RIGHT JOIN orders
+ON customers.id = orders.customer_id;
+
+36
+SELECT payment_type AS "Typ płatności",
+paid_date AS "Data płatności",
+invoice_date AS "Data faktury"
+FROM invoices
+left join orders
+on invoices.order_id = orders.id
+WHERE invoice_date is null;
+
+37
+INSERT INTO School25
+VALUES (student_id, student_name, student_surname, email, class_id)
+(1,"Jan","Kowalski" , "jan.kowalski@w.pl" , 3),
+(2,"Jurek","Towalski" , "jurek.towalski@w.pl" , 3),
+(3,"Ola","Rowalski" , "ola.rowalski@w.pl" , 3),
+(4,"Ewa","Gowalski" , "ewa.gowalski@w.pl" , 3),
+(5,"Zbyszek","Nowalski" , "zbyszek.nowalski@w.pl" , 3);
+
+38
+INSERT INTO School25 
+values (6,"An","Kowalowski" , "an.kowalski@w.pl",3),
+(7,"Damian","Koski" , "damian.koski@w.pl",3),
+(8,"Andrzej","Polanski" , "andrzej.polanski@w.pl",3),
+(9,"Damian","Owalski" , "damian.owalski@w.pl",3),
+(10,"Piotr","Podolski" , "piotr.podolski@w.pl",3);
+
+39
+DELETE FROM School25
+WHERE student_name="Damian";
+
+40
+ALTER TABLE School25
+ADD city varchar (15);
